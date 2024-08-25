@@ -35,7 +35,13 @@ public Student updateStudent(Long id, Student studentDetails) {
 }
 
 public void deleteStudent(Long id) {
-        Student student = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Student not found"));
-        studentRepository.delete(student);
+//        Student student = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Student not found"));
+//        studentRepository.delete(student);
+    Optional<Student> student = studentRepository.findById(id);
+    if(student.isPresent()){
+        studentRepository.deleteById(id);
+    } else {
+        throw new RuntimeException("Student not found");
+    }
 }
 }
